@@ -21,13 +21,15 @@ export const mostrar = async (req,res) =>{
 // crear informacion de usuario
 
 export const crear = async(req,res) =>{
+    console.log(req.body.tipodocumentoID);
     try{
         const infoUsuario = await InformacionUsuario.findOrCreate({
             where:{
                 nombre:req.body.nombre,
                 apellidos:req.body.apellidos,
-                direccionID:req.body.direccionID,
-                contactoID:req.body.contactoID,
+                documentoIdentidad:req.body.documentoIdentidad,
+                //direccionID:req.body.direccionID,
+                //contactoID:req.body.contactoID,
                 tipodocumentoID:req.body.tipodocumentoID
             },
             defaults:{

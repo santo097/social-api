@@ -16,7 +16,7 @@ rutas.use("/direccion", DireccionRouter);
 rutas.use("/role", RoleRouter);
 rutas.use("/tipodocumento", TipoDocumentoRouter);
 rutas.use("/usuario", UsuarioRouter);
-rutas.use("informacion-usuario", InformacionUsuarioRouter);
+rutas.use("/informacion-usuario", InformacionUsuarioRouter);
 rutas.use("/pais", PaisRouter);
 
 export default rutas;

@@ -1,6 +1,7 @@
 import { Usuario } from '../../Model/UsuarioModel.js';
 import bcrypt from 'bcryptjs';
-
+import Configuracion from '../../Utilities/Configuracion.js';
+import  Jwt  from 'jsonwebtoken';
 // Mostrar usuarios
 
 export const mostrar = async (req,res) =>{
@@ -28,7 +29,7 @@ export const crear = async (req,res) =>{
                 usuario:req.body.usuario,
                 contraseña:bcrypt.hashSync(req.body.contraseña, 8),
                 informacionusuarioID:req.body.informacionusuarioID,
-                role:req.body.roleID
+                roleID:req.body.roleID
             },
             defaults:{
                 activo:1
@@ -125,6 +126,28 @@ export const iniciarSesion = async (req,res) =>{
         return res.status(404).json({message:'Usuario no existe'});
     }
     else{
+        let validarContraseña = bcrypt.compareSync(
+            req.body.contraseña,
+            usuario.contraseña
+        );
         
+
+        if(!validarContraseña){
+            return res.status(401).json({
+                accessToken: null,
+                message:"Contraseña incorrecta"
+            });
+        }
+
+        const token = Jwt.sign({id: usuario.id}, Configuracion.Keys.secretKey, {
+            expiresIn:10800 // 3 Horas
+        });
+
+        res.status(200).json({
+            id: usuario.id,
+            usuario:usuario.usuario,
+            token:token,
+            activo: usuario.activo
+        });
     }
 }

@@ -38,7 +38,7 @@ export const crear = async (req,res) =>{
         }
         else{
             return res.status(302).json({
-                message:error.message
+                message:"Pais agregado (temporal mensaje)"
             });
         }
     }catch(error){

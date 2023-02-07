@@ -8,5 +8,8 @@ export default {
         usuario:'uyf5w6mzbo1di6gioxzw',
         contraseña:'r4unY1KDJoEcR8BvDiGW',
         puerto:5432
+    },
+    Keys:{
+        secretKey: "InLaze"
     }
 }

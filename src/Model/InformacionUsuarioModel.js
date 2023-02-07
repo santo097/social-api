@@ -9,6 +9,10 @@ export const InformacionUsuario = sequelize.define("informacionusuario",{
         type: DataTypes.INTEGER,
         allowNull:false,
     },
+    documentoIdentidad:{
+        type: DataTypes.INTEGER,
+        allowNull:false
+    },
     apellidos:{
         type: DataTypes.INTEGER,
         allowNull:false
@@ -20,7 +24,7 @@ export const InformacionUsuario = sequelize.define("informacionusuario",{
 
 
 // Relacion usuario y direccion
-
+/*
 Direccion.hasMany(InformacionUsuario, {
     foreignKey:'direccionID',
     targetId:'id'
@@ -30,10 +34,11 @@ InformacionUsuario.belongsTo(Direccion,{
     foreignKey:'direccionID',
     sourceKey:'id'
 });
-
+*/
 
 // Relacion usuario y direccion
 
+/*
 Contacto.hasMany(InformacionUsuario,{
     foreignKey:'contactoID',
     targetId:'id'
@@ -43,6 +48,7 @@ InformacionUsuario.belongsTo(Contacto,{
     foreignKey:'contactoID',
     sourceKey:'id'
 });
+*/
 
 // Relacion informacion usuario
 

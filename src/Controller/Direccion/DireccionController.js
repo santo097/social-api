@@ -28,11 +28,12 @@ export const crear = async (req, res) =>{
             where:{
                 domicilio: req.body.domicilio,
                 codigoPostal:req.body.codigoPostal,
+                informacionUsuarioID:req.body.informacionUsuarioID,
+                ciudadID:req.body.ciudadID,
+                paisID:1
             },
             defaults:{
                 activo:1,
-                paisID:1,
-                ciudadID:1
             }
         });
         if(!direccion.length){
