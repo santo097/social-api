@@ -1,4 +1,5 @@
 import express, { application } from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
 import Rutas from './Rutas.js';
 
@@ -19,6 +20,8 @@ server.use((req,res,next) =>{
     );
     next();
 });
+
+server.use(cors());
 
 // Rutas
 server.use(Rutas);
