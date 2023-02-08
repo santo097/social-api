@@ -29,13 +29,15 @@ export const crear = async (req,res) =>{
             const contacto = await Contacto.create({
                 telefono:req.body.telefono,
                 correo:req.body.correo,
-                sitioweb:req.body.sitioweb
+                sitioweb:req.body.sitioweb,
+                activo:1,
+                informacionusuarioID:req.body.informacionusuarioID
             });
             return res.status(200).json({
                 message:'¡contacto agregado!'
             });
         }else{
-            return res.status(404).json({
+            return res.status(302).json({
                 message:'contacto existente'
             });
         }

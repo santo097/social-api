@@ -4,7 +4,7 @@ import { validarToken } from "../../Service/Autenticador.js";
 const router = Router();
 
 // Mostrar paises
-router.get("mostrar", validarToken,mostrar);
+router.get("/mostrar", validarToken,mostrar);
 
 // Crear pais
 router.post("/crear", validarToken,crear);

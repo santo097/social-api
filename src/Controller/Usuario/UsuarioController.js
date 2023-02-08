@@ -6,7 +6,9 @@ import  Jwt  from 'jsonwebtoken';
 
 export const mostrar = async (req,res) =>{
     try{
-        const usuarios = await Usuario.findAll();
+        const usuarios = await Usuario.findAll({
+            attributes:["id", "usuario", "contraseña","informacionusuarioID","roleID","activo"]
+        });
         if(!usuarios.length){
             return res.status(404).json('No existen datos de usuarios');
         }
@@ -37,7 +39,7 @@ export const crear = async (req,res) =>{
                 message:'¡usuario agregado!'
             });
         }else{
-            return res.status(404).json({
+            return res.status(302).json({
                 message:'usuario existente'
             });
         }

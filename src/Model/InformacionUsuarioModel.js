@@ -3,10 +3,11 @@ import { DataTypes } from "sequelize";
 import { Direccion } from './DireccionModel.js';
 import { Contacto } from './ContactoModel.js';
 import {TipoDocumento} from './TipoDocumentoModel.js';
+import { Publicacion } from "./PublicacionModel.js";
 
 export const InformacionUsuario = sequelize.define("informacionusuario",{
     nombre:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull:false,
     },
     documentoIdentidad:{
@@ -14,7 +15,7 @@ export const InformacionUsuario = sequelize.define("informacionusuario",{
         allowNull:false
     },
     apellidos:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull:false
     },
     activo:{
@@ -22,33 +23,29 @@ export const InformacionUsuario = sequelize.define("informacionusuario",{
     }
 });
 
-
 // Relacion usuario y direccion
-/*
-Direccion.hasMany(InformacionUsuario, {
-    foreignKey:'direccionID',
+
+InformacionUsuario.hasMany(Direccion,{
+    foreignKey:'informacionusuarioID',
     targetId:'id'
 });
 
-InformacionUsuario.belongsTo(Direccion,{
-    foreignKey:'direccionID',
+Direccion.belongsTo(InformacionUsuario,{
+    foreignKey:'informacionusuarioID',
     sourceKey:'id'
 });
-*/
 
 // Relacion usuario y direccion
 
-/*
-Contacto.hasMany(InformacionUsuario,{
-    foreignKey:'contactoID',
+InformacionUsuario.hasMany(Contacto,{
+    foreignKey:'informacionusuarioID',
     targetId:'id'
 });
 
-InformacionUsuario.belongsTo(Contacto,{
-    foreignKey:'contactoID',
+Contacto.belongsTo(InformacionUsuario,{
+    foreignKey:'informacionusuarioID',
     sourceKey:'id'
 });
-*/
 
 // Relacion informacion usuario
 
@@ -59,5 +56,17 @@ TipoDocumento.hasOne(InformacionUsuario,{
 
 InformacionUsuario.belongsTo(TipoDocumento,{
     foreignKey:'tipodocumentoID',
+    sourceKey:'id'
+});
+
+// Relacion de usuario - publicacion 
+
+InformacionUsuario.hasMany(Publicacion,{
+    foreignKey:'informacionusuarioID',
+    targetId:'id'
+});
+
+Publicacion.belongsTo(InformacionUsuario,{
+    foreignKey:'informacionusuarioID',
     sourceKey:'id'
 });

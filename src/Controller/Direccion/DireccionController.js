@@ -5,7 +5,7 @@ import { Direccion} from "../../Model/DireccionModel.js";
 export const mostrar = async(req,res) =>{
     try{
         const direccion = await Direccion.findAll({
-            attributes:["id", "direccion", "activo"]
+            attributes:["id", "domicilio","codigoPostal","informacionusuarioID","activo"]
         });
         if(!direccion.length){
             return res.status(404).json('No existen datos de direccion');

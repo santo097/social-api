@@ -1,4 +1,3 @@
-import { Ciudad } from "../../Model/CiudadModel.js";
 import { Pais } from "../../Model/PaisModel.js";
 
 // Mostrar Pais
@@ -8,7 +7,7 @@ export const mostrar = async (req,res) =>{
         const pais = await Pais.findAll({
             attributes:["id", "pais", "activo"]
         });
-        if(!ciudad.length){
+        if(!pais.length){
             return res.status(404).json('no existen datos del pais');
         }
         else{
@@ -25,20 +24,19 @@ export const mostrar = async (req,res) =>{
 
 export const crear = async (req,res) =>{
     try{
-        const pais = await Pais.findOrCreate({
-            where:{pais:req.body.pais},
-            defaults:{
+        const paisBuscar = await Pais.findOne({where:{pais:req.body.pais}});
+        if(paisBuscar === null){
+            const pais = Pais.create({
+                pais:req.body.pais,
                 activo:1
-            }
-        });
-        if(!pais.length){
+            });
             return res.status(200).json({
                 message:'¡Pais agregado!'
             });
         }
         else{
             return res.status(302).json({
-                message:"Pais agregado (temporal mensaje)"
+                message:"Pais existente"
             });
         }
     }catch(error){
@@ -53,7 +51,7 @@ export const crear = async (req,res) =>{
 export const buscarPorId = async(req,res) =>{
     try{
         const pais = await Pais.findByPk(req.params.id);
-        if(!ciudad){
+        if(!pais){
             return res.status(404).json({
                 message:'No existe el pais'
             });

@@ -5,15 +5,15 @@ import { validarToken } from "../../Service/Autenticador.js";
 const router = Router();
 
 // Mostrar usuarios
-router.get("/mostrar", validarToken,mostrar);
+router.get("/mostrar",validarToken,mostrar);
 // Crear usuarios
-router.post("/crear", validarToken,crear);
+router.post("/crear",crear);
 // Buscar usuario por id
-router.get("/:id", validarToken,buscarPorId);
+router.get("/:id",validarToken,buscarPorId);
 // Actualizar usuario
-router.put("/actualizar/:id", validarToken,actualizar);
+router.put("/actualizar/:id",validarToken,actualizar);
 // Inhabilitar usuario por id
-router.put("/inhabilitar/:id", validarToken,inhabilitar);
+router.put("/inhabilitar/:id",validarToken,inhabilitar);
 // Iniciar sesion de usuario
 router.post("/iniciarsesion", iniciarSesion);
 

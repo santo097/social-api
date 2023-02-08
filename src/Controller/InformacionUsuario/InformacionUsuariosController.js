@@ -4,7 +4,9 @@ import { InformacionUsuario } from "../../Model/InformacionUsuarioModel.js";
 
 export const mostrar = async (req,res) =>{
     try{
-        const infoUsuario = await InformacionUsuario.findAll();
+        const infoUsuario = await InformacionUsuario.findAll({
+            attributes:["nombre","apellidos","documentoIdentidad", "tipodocumentoID","activo"]
+        });
         if(!infoUsuario.length){
             return res.status(404).json('no existe informacion de los usuarios');
         }
@@ -37,7 +39,7 @@ export const crear = async(req,res) =>{
             });
         }
         else{
-            return res.status(200).json({
+            return res.status(302).json({
                 message:'informacion de usuario existente!'
             });
         }

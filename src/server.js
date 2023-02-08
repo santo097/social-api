@@ -15,7 +15,7 @@ const main = async() =>{
     try {
         await sequelize.authenticate();
         console.log('Conexion establecida');
-        // await sequelize.sync();
+        // await sequelize.sync({force:true});
         server.listen(Configuracion.servidor.port, ()=>{
             console.log('Server on port: ', Configuracion.servidor.port);
         });

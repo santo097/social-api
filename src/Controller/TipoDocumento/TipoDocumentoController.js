@@ -5,7 +5,7 @@ import { TipoDocumento } from '../../Model/TipoDocumentoModel.js';
 export const mostrar = async(req,res) =>{
     try{
         const tipoDocumento = await TipoDocumento.findAll({
-            attributes:["id", "ciudad", "activo"]
+            attributes:["id", "tipoDocumento", "activo"]
         });
         if(!tipoDocumento.length){
             return res.status(404).json('No existen datos del tipo de documento');
@@ -24,11 +24,12 @@ export const mostrar = async(req,res) =>{
 
 export const crear = async (req,res) =>{
     try{
-        const tipoDocumento = await TipoDocumento.findOrCreate({
-            where:{tipoDocumento: req.body.tipoDocumento},
-            defaults:{activo:1}
-        });
-        if(!tipoDocumento.length){
+        const tipoDocumentoBuscar = await TipoDocumento.findOne({where:{tipoDocumento:req.body.tipoDocumento}});
+        if(tipoDocumentoBuscar === null){
+            const tipoDocumento = TipoDocumento.create({
+                tipoDocumento:req.body.tipoDocumento,
+                activo:1
+            });
             return res.status(200).json({
                 message:"¡Tipo de documento agregado!"
             });

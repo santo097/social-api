@@ -6,7 +6,7 @@ export const Role = sequelize.define("role" , {
         allowNull:false    
     },
     activo:{
-        type:DataTypes.STRING,
+        type:DataTypes.BOOLEAN,
         allowNull:false
     }
 });

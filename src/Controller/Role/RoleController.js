@@ -5,7 +5,7 @@ import { Role } from "../../Model/RoleModel.js";
 export const mostrar = async (req,res) =>{
     try{
         const role = await Role.findAll({
-            attributes:["id", "ciudad", "activo"]
+            attributes:["id", "role", "activo"]
         });
         if(!role.length){
             return res.status(404).json('No existen datos de roles');
@@ -24,18 +24,19 @@ export const mostrar = async (req,res) =>{
 
 export const crear = async(req,res) =>{
     try{
-        const role = await Role.findOrCreate({
-            where:{role:req.body.role},
-            defaults:{activo:1}
-        });
-        if(!role.length){
+        const roleBuscar = await Role.findOne({where:{role:req.body.role}});
+        if(roleBuscar === null){
+            const role = await Role.create({
+                role:req.body.role,
+                activo:1
+            });
             return res.status(200).json({
                 message:'¡Role agregada!'
             });
         }
         else{
             return res.status(302).json({
-                message:'El role ya fue agregada'
+                message:'El role ya fue agregado'
             });
         }
     }catch(error){

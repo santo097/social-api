@@ -24,13 +24,12 @@ export const mostrar = async (req,res) =>{
 
 export const crear = async (req,res) =>{
     try{
-        const ciudad = await Ciudad.findOrCreate({
-            where:{ciudad:req.body.ciudad},
-            defaults:{
-                activo:1,
-            }
-        });
-        if(!ciudad.length){
+        const ciudadBuscar = await Ciudad.findOne({where:{ciudad:req.body.ciudad}});
+        if(ciudadBuscar === null){
+            const ciudad = await Ciudad.create({
+                ciudad:req.body.ciudad,
+                activo:1
+            });
             return res.status(200).json({
                 message:'¡Ciudad agregada!'
             });
