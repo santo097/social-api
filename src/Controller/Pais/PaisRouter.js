@@ -1,21 +1,21 @@
 import { Router } from "express";
 import { mostrar, crear, buscarPorId, actualizar, inhabilitar } from "./PaisController.js";
-
+import { validarToken } from "../../Service/Autenticador.js";
 const router = Router();
 
 // Mostrar paises
-router.get("mostrar", mostrar);
+router.get("mostrar", validarToken,mostrar);
 
 // Crear pais
-router.post("/crear", crear);
+router.post("/crear", validarToken,crear);
 
 // Buscar pais por id
-router.get("/:id", buscarPorId);
+router.get("/:id", validarToken,buscarPorId);
 
 // Actualizar pais
-router.put("/actualizar/:id", actualizar);
+router.put("/actualizar/:id", validarToken,actualizar);
 
 // Inhabilitar pais por id
-router.put("/inhabilitar/:id", inhabilitar);
+router.put("/inhabilitar/:id", validarToken,inhabilitar);
 
 export default router;

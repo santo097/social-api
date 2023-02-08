@@ -1,16 +1,17 @@
 import { Router } from "express";
 import { mostrar, crear, buscarPorId, actualizar, inhabilitar} from "./CiudadController.js";
+import { validarToken } from "../../Service/Autenticador.js";
 const router = Router();
 
 // Mostrar ciudades
-router.get("/mostrar",  mostrar);
+router.get("/mostrar", validarToken ,mostrar);
 // Crear ciudad
-router.post("/crear", crear);
+router.post("/crear",validarToken ,crear);
 // Buscar ciudad por id
-router.get("/:id", buscarPorId);
+router.get("/:id",validarToken ,buscarPorId);
 // Actualizar ciudad
-router.put("/actualizar/:id", actualizar);
+router.put("/actualizar/:id",validarToken ,actualizar);
 // Inhabilitar ciudad por id
-router.put("/inhabilitar/:id", inhabilitar);
+router.put("/inhabilitar/:id", validarToken,inhabilitar);
 
 export default router;
