@@ -7,6 +7,7 @@ import TipoDocumentoRouter from '../Controller/TipoDocumento/TipoDocumentoRouter
 import UsuarioRouter from '../Controller/Usuario/UsuarioRouter.js';
 import InformacionUsuarioRouter from '../Controller/InformacionUsuario/InformacionUsuariosRouter.js';
 import PaisRouter from '../Controller/Pais/PaisRouter.js';
+import PublicacionRouter from '../Controller/Publicacion/PublicacionRouter.js';
 
 const rutas = express();
 
@@ -18,5 +19,6 @@ rutas.use("/tipodocumento", TipoDocumentoRouter);
 rutas.use("/usuario", UsuarioRouter);
 rutas.use("/informacion-usuario", InformacionUsuarioRouter);
 rutas.use("/pais", PaisRouter);
+rutas.use("/publicacion", PublicacionRouter);
 
 export default rutas;
