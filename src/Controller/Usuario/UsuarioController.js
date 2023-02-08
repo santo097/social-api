@@ -25,7 +25,6 @@ export const mostrar = async (req,res) =>{
 export const crear = async (req,res) =>{
     try{
         const usuarioBuscar = await Usuario.findOne({where:{usuario:req.body.usuario}});
-        console.log(usuarioBuscar);
         if(usuarioBuscar === null){
             const usuario = await Usuario.create({
                 usuario:req.body.usuario,

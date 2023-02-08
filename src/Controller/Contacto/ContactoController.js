@@ -24,21 +24,19 @@ export const mostrar = async(req,res) =>{
 
 export const crear = async (req,res) =>{
     try{
-        const contacto = await Contacto.findOrCreate({
-            where:{
+        const contactoBuscar = await Contacto.findOne({where:{telefono:req.body.telefono}});
+        if(contactoBuscar === null){
+            const contacto = await Contacto.create({
                 telefono:req.body.telefono,
                 correo:req.body.correo,
                 sitioweb:req.body.sitioweb
-            }
-        });
-        if(!contacto.length){
-            return res.status(200).json({
-                message:'¡Contacto agregado!'
             });
-        }
-        else{
-            return res.status(302).json({
-                message: 'El contacto ya fue agregado'
+            return res.status(200).json({
+                message:'¡contacto agregado!'
+            });
+        }else{
+            return res.status(404).json({
+                message:'contacto existente'
             });
         }
     } catch(error){
@@ -84,7 +82,7 @@ export const actualizar = async(req,res) =>{
                 {
                     telefono:req.body.telefono,
                     correo:req.body.correo,
-                    sitioweb:req.body.sitioweb,
+                    sitioweb:req.body.sitioweb
                 },
                 {where:{id:req.params.id}});
                 return res.status(200).json({message:"Contacto actualizado"});

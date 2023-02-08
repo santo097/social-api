@@ -21,24 +21,24 @@ export const mostrar = async (req,res) =>{
 // crear informacion de usuario
 
 export const crear = async(req,res) =>{
-    console.log(req.body.tipodocumentoID);
     try{
-        const infoUsuario = await InformacionUsuario.findOrCreate({
-            where:{
+        const informacionUsuarioBuscar = await InformacionUsuario.findOne({where:{documentoIdentidad:req.body.documentoIdentidad}});
+        if(informacionUsuarioBuscar === null){
+            const infoUsuario = await InformacionUsuario.create({
                 nombre:req.body.nombre,
                 apellidos:req.body.apellidos,
                 documentoIdentidad:req.body.documentoIdentidad,
-                //direccionID:req.body.direccionID,
-                //contactoID:req.body.contactoID,
-                tipodocumentoID:req.body.tipodocumentoID
-            },
-            defaults:{
+                tipodocumentoID:req.body.tipodocumentoID,
                 activo:1
-            }
-        });
-        if(!infoUsuario.length){
+            });
+
             return res.status(200).json({
                 message:'informacion de usuario agregado!'
+            });
+        }
+        else{
+            return res.status(200).json({
+                message:'informacion de usuario existente!'
             });
         }
     }catch(error){
@@ -85,9 +85,8 @@ export const actualizar = async (req,res) =>{
                 {
                     nombre:req.body.nombre,
                     apellidos:req.body.apellidos,
-                    direccionID:req.body.direccionID,
-                    contactoID:req.body.contactoID,
-                    tipodocumentoID:req.body.tipodocumentoID
+                    documentoIdentidad:req.body.documentoIdentidad,
+                    tipodocumentoID:req.body.tipodocumentoID,
                 },{where:{id:req.params.id}});
                 return res.status(200).json({message:'Informacion de usuario actualizado'});
         }
