@@ -24,20 +24,22 @@ export const mostrar = async (req,res) =>{
 
 export const crear = async (req,res) =>{
     try{
-        const usuario = await Usuario.findOrCreate({
-            where:{
+        const usuarioBuscar = await Usuario.findOne({where:{usuario:req.body.usuario}});
+        console.log(usuarioBuscar);
+        if(usuarioBuscar === null){
+            const usuario = await Usuario.create({
                 usuario:req.body.usuario,
                 contraseña:bcrypt.hashSync(req.body.contraseña, 8),
                 informacionusuarioID:req.body.informacionusuarioID,
-                roleID:req.body.roleID
-            },
-            defaults:{
+                roleID:req.body.roleID,
                 activo:1
-            }
-        });
-        if(!usuario.length){
+            });
             return res.status(200).json({
                 message:'¡usuario agregado!'
+            });
+        }else{
+            return res.status(404).json({
+                message:'usuario existente'
             });
         }
     }catch(error){
@@ -81,10 +83,10 @@ export const actualizar = async (req, res) =>{
         }
         else{
             const usuarioActualizar = await Usuario.update(
-                {   usuario:req.body.usuario,
+                {  usuario:req.body.usuario,
                     contraseña:bcrypt.hashSync(req.body.contraseña, 8),
                     informacionusuarioID:req.body.informacionusuarioID,
-                    role:req.body.roleID
+                    roleID:req.body.roleID
                 },{where:{id:req.params.id}});
             return res.status(200).json({message:'Usuario actualizado'});
         }

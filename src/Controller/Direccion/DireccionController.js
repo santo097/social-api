@@ -24,23 +24,17 @@ export const mostrar = async(req,res) =>{
 
 export const crear = async (req, res) =>{
     try{
-        const direccion = await Direccion.findOrCreate({
-            where:{
-                domicilio: req.body.domicilio,
-                codigoPostal:req.body.codigoPostal,
-                informacionUsuarioID:req.body.informacionUsuarioID,
-                ciudadID:req.body.ciudadID,
-                paisID:1
-            },
-            defaults:{
-                activo:1,
-            }
+        const direccion = await Direccion.create({
+            domicilio: req.body.domicilio,
+            codigoPostal:req.body.codigoPostal,
+            informacionUsuarioID:req.body.informacionUsuarioID,
+            ciudadID:req.body.ciudadID,
+            paisID:1,
+            activo:1
         });
-        if(!direccion.length){
-            return res.status(200).json({
-                message:'¡Direccion Agregada!'
-            });
-        }
+        return res.status(200).json({
+            message:'¡Direccion Agregada!'
+        });
     }catch(error){
         return res.status(500).json({
             message:error.message
