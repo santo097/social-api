@@ -1,5 +1,5 @@
-# InLazeTest
-API para proyecto social wires
+# API SOCIAL
+API para red social
 
 1. Instalar proyecto:
 a. Clonar o descargar el proyecto https://github.com/santo097/InLazeTest.git
